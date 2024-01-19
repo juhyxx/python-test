@@ -1,0 +1,11 @@
+body {
+    font-family: sans-serif;
+}
+
+nav {
+    display: flex;
+    background-color: antiquewhite;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+}
