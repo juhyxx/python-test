@@ -1,17 +1,16 @@
 import xml.sax
 
 
-class XmlHandlerList(xml.sax.ContentHandler):
-    result = []
+class XmlHandlerCount(xml.sax.ContentHandler):
+    result = 0
 
     def startElement(self, name, attributes):
-        global text
         if name == "item":
-            self.result.append(attributes["name"])
+            self.result = self.result + 1
 
 
-def product_list(file_name: str) -> int:
-    handler = XmlHandlerList()
+def product_count(file_name: str) -> int:
+    handler = XmlHandlerCount()
     parser = xml.sax.make_parser()
     parser.setContentHandler(handler)
 

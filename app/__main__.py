@@ -6,14 +6,24 @@ import os
 from flask import Flask, render_template
 
 import logging
+from xmllib.parts import parts_list
+
 from xmllib.product_list import product_list
 
-from xmllib.product_count import product_count
+from xmllib.count import product_count
+import requests
+import shutil
+
 
 flask = Flask(__name__)
 
-
 def download():
+    logging.warning("downloading...")
+    url = "https://www.retailys.cz/wp-content/uploads/astra_export_xml.zip"
+    with requests.get(url, stream=True) as r:
+        with open("./download/astra_export_xml.zip", 'wb') as f:
+            shutil.copyfileobj(r.raw, f)
+
     logging.warning("unzipping...")
     with zipfile.ZipFile("./download/astra_export_xml.zip", "r") as zipped_file:
         zipped_file.extractall("./download")
@@ -48,7 +58,8 @@ def task2():
 @flask.route("/3")
 def task3():
     global file
-    return render_template("task3.html")
+
+    return render_template("task3.html", list=parts_list(file))
 
 
 if __name__ == "__main__":

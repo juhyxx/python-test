@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-task 3
+
+<div>
+    {% for key, value in list.items() %}
+    <b>{{ key }}</b>
+    <ul>
+        {% for item in value %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+</div>
+
 
 {% endblock %}
